@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using RhythmRift;
@@ -36,12 +36,13 @@ public class SkipGameOverPlugin : BaseUnityPlugin
     [HarmonyPrefix]
     public static bool HandlePlayerDefeat(RRStageController __instance)
     {
-        if ( !SkipGameOver.Config.General.AutoRestart.Value ) return true;
+        if (!SkipGameOver.Config.General.AutoRestart.Value) return true;
         if (__instance.CanQuickRetry)
         {
             __instance.RetryStage(false, true);
+            return false;
         }
-        return false;
+        return true;
+        
     }
-
 }
